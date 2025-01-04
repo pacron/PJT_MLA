@@ -1,0 +1,163 @@
+# Télécharger le dataset Imagenette
+!wget https://s3.amazonaws.com/fast-ai-imageclas/imagenette2-320.tgz
+!tar -xvzf imagenette2-320.tgz
+
+# Assurez-vous que le chemin est correct
+data_dir = "./imagenette2-320"
+
+
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import torchvision
+import torchvision.transforms as transforms
+import matplotlib.pyplot as plt
+import numpy as np
+from torch.utils.data import DataLoader
+
+
+
+
+# Charger le dataset Imagenette
+def load_imagenette(data_dir="./imagenette2-320", image_size=128, batch_size=64):
+    transform = transforms.Compose([
+        transforms.Resize((image_size, image_size)),
+        transforms.ToTensor(),
+    ])
+    train_dataset = torchvision.datasets.ImageFolder(root=f"{data_dir}/train", transform=transform)
+    test_dataset = torchvision.datasets.ImageFolder(root=f"{data_dir}/val", transform=transform)
+
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+
+    return train_loader, test_loader
+
+
+# Générer des exemples adversariaux avec FGSM
+def FGSM(model, images, labels, epsilon):
+    images.requires_grad = True
+    outputs = model(images)
+    loss = nn.CrossEntropyLoss()(outputs, labels)
+    model.zero_grad()
+    loss.backward()
+    perturbation = epsilon * images.grad.sign()
+    adversarial_images = torch.clamp(images + perturbation, 0, 1)
+    return adversarial_images, perturbation
+
+# Réseau neuronal profond simple
+class SimpleCNN(nn.Module):
+    def __init__(self, num_classes=10):
+        super(SimpleCNN, self).__init__()
+        self.conv1 = nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1)
+        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1)
+        # Calculate the output size after the convolutional layers
+        # Input size is 128x128.
+        # After conv1 (128x128 input with padding=1, kernel_size=3, stride=1): output is 128x128
+        # After relu: 128x128
+        # After conv2 (128x128 input with padding=1, kernel_size=3, stride=1): output is 128x128
+        # After relu: 128x128
+        # Output feature map size is 128x128 with 64 channels
+        self.fc1 = nn.Linear(64 * 128 * 128, 128)  # Changed this line
+        self.fc2 = nn.Linear(128, num_classes)
+
+    def forward(self, x):
+        x = torch.relu(self.conv1(x))
+        x = torch.relu(self.conv2(x))
+        x = x.view(x.size(0), -1)
+        x = torch.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
+
+# Entraîner le modèle
+def train_model(model, train_loader, optimizer, epochs=10):
+    model.train()
+    for epoch in range(epochs):
+        running_loss = 0.0
+        for images, labels in train_loader:
+            optimizer.zero_grad()
+            outputs = model(images)
+            loss = nn.CrossEntropyLoss()(outputs, labels)
+            loss.backward()
+            optimizer.step()
+            running_loss += loss.item()
+        print(f"Epoch [{epoch+1}/{epochs}], Loss: {running_loss / len(train_loader):.4f}")
+
+# Tester le modèle
+def test_model(model, loader, epsilon):
+    model.eval()
+    correct = 0
+    total = 0
+    confidences = []
+
+    with torch.no_grad():
+        for images, labels in loader:
+            adv_images, perturbation = FGSM(model, images, labels, epsilon)
+            outputs = model(adv_images)
+            probabilities = nn.Softmax(dim=1)(outputs)
+            confidence, predictions = probabilities.max(dim=1)
+
+            correct += (predictions == labels).sum().item()
+            total += labels.size(0)
+            confidences.extend(confidence.tolist())
+
+    accuracy = 100 * correct / total
+    avg_confidence = np.mean(confidences)
+    print(f"Accuracy on adversarial examples: {accuracy:.2f}%")
+    print(f"Average confidence: {avg_confidence * 100:.2f}%")
+    return accuracy, avg_confidence
+
+# Visualiser l'image, le bruit et l'image perturbée
+def visualize_images(images, perturbation, adversarial_images):
+    plt.figure(figsize=(10, 10))
+
+    # Image originale
+    plt.subplot(1, 3, 1)
+    plt.imshow(np.transpose(images[0].cpu().numpy(), (1, 2, 0)))
+    plt.title("Original Image")
+    plt.axis("off")
+
+    # Bruit
+    plt.subplot(1, 3, 2)
+    plt.imshow(np.transpose(perturbation[0].cpu().numpy(), (1, 2, 0)), cmap='gray')
+    plt.title("Adversarial Noise")
+    plt.axis("off")
+
+    # Image perturbée
+    plt.subplot(1, 3, 3)
+    plt.imshow(np.transpose(adversarial_images[0].cpu().numpy(), (1, 2, 0)))
+    plt.title("Adversarial Image")
+    plt.axis("off")
+
+    plt.show()
+
+# Fonction principale
+def main():
+    data_dir = "./imagenette2-320"  # Changez vers le chemin du dataset Imagenette téléchargé
+    image_size = 128
+    batch_size = 64
+    epsilon = 0.1
+    epochs = 2
+
+    # Charger les données
+    train_loader, test_loader = load_imagenette(data_dir, image_size, batch_size)
+
+    # Initialiser le modèle
+    model = SimpleCNN(num_classes=len(train_loader.dataset.classes))
+    optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+    # Entraîner le modèle sur des données normales
+    print("Training the model...")
+    train_model(model, train_loader, optimizer, epochs)
+
+    # Tester le modèle sur des données adversariales
+    print("\nTesting the model on adversarial examples...")
+    accuracy, avg_confidence = test_model(model, test_loader, epsilon)
+
+    # Visualiser les résultats
+    print("\nVisualizing an example...")
+    images, labels = next(iter(test_loader))
+    adversarial_images, perturbation = FGSM(model, images, labels, epsilon)
+    visualize_images(images, perturbation, adversarial_images)
+
+if __name__ == "__main__":
+    main()
