@@ -1,0 +1,87 @@
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import torchvision.transforms as transforms
+import torchvision.models as models
+from torchvision.datasets import CIFAR10
+from torch.utils.data import DataLoader
+import numpy as np
+import matplotlib.patches as patches
+import matplotlib.pyplot as plt
+
+torch.save(model.state_dict(), 'cifar10_resnet18.pth')
+
+
+# Load CIFAR-10 class names
+classes = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
+
+# Load a pre-trained model (for demonstration, we use a ResNet18 pre-trained on CIFAR-10)
+model = models.resnet18(pretrained=False, num_classes=10)
+model.load_state_dict(torch.load('cifar10_resnet18.pth'))  # Assumes model weights are saved locally
+model.eval()
+
+def generate_fooling_image(model, target_class, input_size=(3, 32, 32), confidence_threshold=0.5):
+    # Initialisation gaussienne ou basée sur des images réelles
+    image = torch.randn(1, *input_size, requires_grad=True)  # Option : Charger une image réelle
+    
+    optimizer = optim.Adam([image], lr=0.1)  # Augmenté le taux d'apprentissage
+    
+    for step in range(1000):  # Augmenté le nombre d'itérations
+        optimizer.zero_grad()
+        output = model(image)
+        target_score = output[0, target_class]
+        loss = -target_score
+        loss.backward()
+        optimizer.step()
+        image.data.clamp_(0, 1)  # Maintenir les pixels dans une plage valide
+        probabilities = nn.Softmax(dim=1)(output)
+        if probabilities[0, target_class] > confidence_threshold:
+            return image.detach(), probabilities[0, target_class].item()
+    
+    return image.detach(), probabilities[0, target_class].item()
+
+
+# Generate fooling images for the "airplane" class
+fooling_images = []
+successful_images = []
+num_samples = 10
+for _ in range(num_samples):
+    fooling_image, confidence = generate_fooling_image(model, target_class=0)
+    fooling_images.append((fooling_image.squeeze().permute(1, 2, 0).numpy(), confidence))
+    if confidence >= 0.5:
+        successful_images.append(fooling_image.squeeze().permute(1, 2, 0).numpy())
+
+# Plot results
+fig, axes = plt.subplots(1, num_samples, figsize=(15, 5))
+for i, (img, confidence) in enumerate(fooling_images):
+    ax = axes[i]
+    ax.imshow(img)
+    ax.axis('off')
+    if confidence >= 0.5:
+        # Add a yellow box around successful images
+        rect = patches.Rectangle((0, 0), 32, 32, linewidth=2, edgecolor='yellow', facecolor='none')
+        ax.add_patch(rect)
+    ax.set_title(f'{confidence:.2f}')
+
+plt.suptitle("Generated Fooling Images for 'Airplane' Class")
+plt.show()
+
+# Display successful fooling images
+if successful_images:
+    num_success = len(successful_images)
+    fig, axes = plt.subplots(1, num_success, figsize=(15, 5))
+    
+    # Ensure `axes` is iterable (wrap in a list if only one image)
+    if num_success == 1:
+        axes = [axes]
+    
+    for i, img in enumerate(successful_images):
+        ax = axes[i]
+        ax.imshow(img)
+        ax.axis('off')
+        ax.set_title("Fooled")
+    
+    plt.suptitle("Successful Fooling Images")
+    plt.show()
+else:
+    print("No successful fooling images were generated.")
