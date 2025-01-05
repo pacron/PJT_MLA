@@ -171,3 +171,78 @@ def evaluate_rubbish_data():
 
 # Evaluate (use pre-trained weights or random initialization for demonstration)
 evaluate_rubbish_data()
+
+
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+from sklearn.gaussian_process import GaussianProcessClassifier
+from sklearn.gaussian_process.kernels import RBF
+import torch
+import torch.nn as nn
+
+# Génération de données gaussiennes
+np.random.seed(42)
+def generate_gaussian_data(samples, dimensions):
+    return np.random.normal(0, 1, (samples, dimensions))
+
+# Configuration des données synthétiques
+mnist_samples = 10000
+mnist_dimensions = 784
+
+mnist_rubbish_data = generate_gaussian_data(mnist_samples, mnist_dimensions)
+mnist_labels = np.random.randint(0, 10, size=(mnist_samples,))
+
+# Modèle de régression softmax (logistic regression multiclasses)
+def evaluate_softmax():
+    softmax_model = LogisticRegression(max_iter=1000, multi_class='multinomial')
+    
+    # Entraînement sur des données aléatoires (simulées)
+    training_data = generate_gaussian_data(5000, mnist_dimensions)
+    training_labels = np.random.randint(0, 10, size=(5000,))
+    softmax_model.fit(training_data, training_labels)
+
+    # Prédictions sur les données "rubbish"
+    probabilities = softmax_model.predict_proba(mnist_rubbish_data)
+    predictions = np.argmax(probabilities, axis=1)
+    confidences = np.max(probabilities, axis=1)
+    errors = predictions != mnist_labels
+
+    error_rate = np.mean(errors)
+    avg_confidence = np.mean(confidences[errors]) if np.any(errors) else None
+    return error_rate, avg_confidence
+
+# Réseau à base de fonctions RBF
+def evaluate_rbf():
+    kernel = RBF(length_scale=1.0)
+    rbf_model = GaussianProcessClassifier(kernel=kernel)
+
+    # Entraînement sur des données aléatoires (simulées)
+    training_data = generate_gaussian_data(500, mnist_dimensions)
+    training_labels = np.random.randint(0, 10, size=(500,))
+    rbf_model.fit(training_data, training_labels)
+
+    # Prédictions sur les données "rubbish"
+    predictions = rbf_model.predict(mnist_rubbish_data)
+    probabilities = rbf_model.predict_proba(mnist_rubbish_data)
+    confidences = np.max(probabilities, axis=1)
+    errors = predictions != mnist_labels
+
+    error_rate = np.mean(errors)
+    avg_confidence = np.mean(confidences[errors]) if np.any(errors) else None
+    return error_rate, avg_confidence
+
+# Évaluation des modèles
+softmax_error_rate, softmax_avg_conf = evaluate_softmax()
+print(f"Softmax Regression Error Rate: {softmax_error_rate * 100:.2f}%")
+if softmax_avg_conf is not None:
+    print(f"Softmax Avg Confidence on Mistakes: {softmax_avg_conf * 100:.2f}%")
+else:
+    print("Softmax Avg Confidence on Mistakes: Undefined")
+
+rbf_error_rate, rbf_avg_conf = evaluate_rbf()
+print(f"RBF Network Error Rate: {rbf_error_rate * 100:.2f}%")
+if rbf_avg_conf is not None:
+    print(f"RBF Avg Confidence on Mistakes: {rbf_avg_conf * 100:.2f}%")
+else:
+    print("RBF Avg Confidence on Mistakes: Undefined")
