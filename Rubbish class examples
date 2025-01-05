@@ -85,3 +85,89 @@ if successful_images:
     plt.show()
 else:
     print("No successful fooling images were generated.")
+
+
+import numpy as np
+from sklearn.metrics import accuracy_score
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torch.utils.data import DataLoader, TensorDataset
+
+# Generate Gaussian rubbish data for MNIST and CIFAR-10
+np.random.seed(42)
+def generate_gaussian_data(samples, dimensions):
+    return np.random.normal(0, 1, (samples, dimensions))
+
+# Define synthetic data
+mnist_samples = 10000
+mnist_dimensions = 784
+cifar_samples = 1000
+cifar_dimensions = 3072
+
+mnist_rubbish_data = generate_gaussian_data(mnist_samples, mnist_dimensions)
+cifar_rubbish_data = generate_gaussian_data(cifar_samples, cifar_dimensions)
+
+# Simulated labels (for evaluation purposes)
+mnist_labels = np.random.randint(0, 10, size=(mnist_samples,))
+cifar_labels = np.random.randint(0, 10, size=(cifar_samples,))
+
+# PyTorch Model Definitions
+class MaxoutNetwork(nn.Module):
+    def __init__(self, input_dim, output_dim, num_units=5):
+        super(MaxoutNetwork, self).__init__()
+        self.fc = nn.Linear(input_dim, num_units * output_dim)
+        self.output_dim = output_dim
+        self.num_units = num_units
+
+    def forward(self, x):
+        x = self.fc(x)
+        x = x.view(-1, self.output_dim, self.num_units)
+        x, _ = torch.max(x, dim=2)
+        return x
+
+class SigmoidNetwork(nn.Module):
+    def __init__(self, input_dim, output_dim):
+        super(SigmoidNetwork, self).__init__()
+        self.fc = nn.Linear(input_dim, output_dim)
+
+    def forward(self, x):
+        return torch.sigmoid(self.fc(x))
+
+# Utility Functions
+def evaluate_model(model, data, labels, threshold=0.5):
+    model.eval()
+    with torch.no_grad():
+        inputs = torch.tensor(data, dtype=torch.float32)
+        logits = model(inputs)
+        probabilities = torch.softmax(logits, dim=1)
+        confidences, predictions = torch.max(probabilities, dim=1)
+        errors = predictions.numpy() != labels
+        error_rate = np.mean(errors)
+        avg_confidence = np.mean(confidences.numpy()[errors])
+        return error_rate, avg_confidence
+
+# Prepare Models
+mnist_maxout = MaxoutNetwork(mnist_dimensions, 10)
+mnist_sigmoid = SigmoidNetwork(mnist_dimensions, 10)
+cifar_maxout = MaxoutNetwork(cifar_dimensions, 10)
+
+# Define Example Evaluations (assuming models are trained)
+def evaluate_rubbish_data():
+    mnist_error_rate_maxout, mnist_avg_conf_maxout = evaluate_model(
+        mnist_maxout, mnist_rubbish_data, mnist_labels
+    )
+    mnist_error_rate_sigmoid, mnist_avg_conf_sigmoid = evaluate_model(
+        mnist_sigmoid, mnist_rubbish_data, mnist_labels
+    )
+
+    cifar_error_rate_maxout, cifar_avg_conf_maxout = evaluate_model(
+        cifar_maxout, cifar_rubbish_data, cifar_labels
+    )
+
+    print(f"MNIST Maxout Error Rate: {mnist_error_rate_maxout * 100:.2f}%, Avg Confidence: {mnist_avg_conf_maxout * 100:.2f}%")
+    print(f"MNIST Sigmoid Error Rate: {mnist_error_rate_sigmoid * 100:.2f}%, Avg Confidence: {mnist_avg_conf_sigmoid * 100:.2f}%")
+    print(f"CIFAR Maxout Error Rate: {cifar_error_rate_maxout * 100:.2f}%, Avg Confidence: {cifar_avg_conf_maxout * 100:.2f}%")
+
+# Evaluate (use pre-trained weights or random initialization for demonstration)
+evaluate_rubbish_data()
