@@ -1,3 +1,79 @@
-Les codes 1 et 2 correspondent au paragraphe 4. Il crée une perturbation.
-Le code 1 utilise un réseau simple tandis que le code 2 utilise un réseau profond.
-Le code 3 utilise pour le moment une technique de régularisation, on doit le comparer à une technique d'entrainement adversarial.
+# Projet Codes ML
+
+Ce dépôt contient plusieurs notebooks pour différents projets liés à l'apprentissage machine, les réseaux de neurones et les attaques adversariales. Voici une liste des fichiers, avec leur description (à compléter) et les commandes pour les exécuter.
+
+---
+
+## Liste des fichiers et commandes
+
+### 1. `Adv_ImageNet.ipynb`
+Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+```bash
+jupyter notebook Adv_ImageNet.ipynb
+```
+### 2. `Code_RBF_Confiance (1).ipynb`
+Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+```bash
+jupyter notebook Code_RBF_Confiance\ \(1\).ipynb
+```
+### 3. `Comparaisons_RBF_Maxout_Softmax.ipynb`
+Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+```bash
+jupyter notebook Comparaisons_RBF_Maxout_Softmax.ipynb
+```
+### 4. 'Explaining_and_Harnessing_adversarial_examples.ipynb'
+
+Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+```bash
+jupyter notebook Explaining_and_Harnessing_adversarial_examples.ipynb
+```
+### 5. `RNN_Deep_AttaqueADV.ipynb`
+Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+```bash
+jupyter notebook RNN_Deep_AttaqueADV.ipynb
+```
+### 6. `RNN_Simple_AttaqueADV.ipynb`
+Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+```bash
+jupyter notebook RNN_Simple_AttaqueADV.ipynb
+```
+### 7. `Rotation_x_direction_gradient.ipynb`
+Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+```bash
+jupyter notebook Rotation_x_direction_gradient.ipynb
+```
+### 8. `Adv_ImageNet.ipynb`
+Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+```bash
+jupyter notebook Adv_ImageNet.ipynb
+```
+### 9. `jupyter notebook Rubbish\ class\ examples.ipynb`
+Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+```bash
+jupyter notebook Rubbish\ class\ examples.ipynb
+```
+### 10. `jupyter notebook RéseauMaxout_Fonction_de_Loss_alpha.ipynb`
+Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+```bash
+jupyter notebook RéseauMaxout_Fonction_de_Loss_alpha.ipynb
+```
+### 11. `Réseau_Maxout_L1WeightDecay.ipynb`
+Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+```bash
+jupyter notebook Réseau_Maxout_L1WeightDecay.ipynb
+```
+### 12. `Réseau_Maxout_MNIST.ipynb`
+Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+```bash
+jupyter notebook Réseau_Maxout_MNIST.ipynb
+```
+### 13. `Réseau_maxout_convol_CIFAR-10.ipynb`
+Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+```bash
+jupyter notebook Réseau_maxout_convol_CIFAR-10.ipynb
+```
+### 14. `Shallow_Softmax_MNIST.ipynb`
+Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+```bash
+jupyter notebook Shallow_Softmax_MNIST.ipynb
+```
