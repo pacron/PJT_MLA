@@ -1,6 +1,6 @@
 # Projet Codes ML
 
-Ce dépôt contient plusieurs notebooks pour explorer et tester des architectures de réseaux neuronaux face à des exemples adversariaux. Les notebooks comprennent des études comparatives, des implémentations d'attaques, ainsi que des analyses pour améliorer la robustesse des modèles. Voici la liste des fichiers disponibles, accompagnée de leur description et des commandes pour les exécuter.
+Ce dépôt contient plusieurs notebooks pour explorer et tester des architectures de réseaux neuronaux face à des exemples adversariaux. Les notebooks comprennent des études comparatives, des implémentations d'attaques adversariales, ainsi que des analyses pour améliorer la robustesse des modèles. Voici la liste des fichiers disponibles, accompagnés de leur description et des commandes pour les exécuter.
 
 ## Liste des fichiers et commandes
 
