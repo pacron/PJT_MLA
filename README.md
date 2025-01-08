@@ -1,7 +1,8 @@
 # Projet Codes ML
 
-Ce dépôt contient plusieurs notebooks pour différents projets liés à l'apprentissage machine, les réseaux de neurones et les attaques adversariales. Voici une liste des fichiers, avec leur description (à compléter) et les commandes pour les exécuter.
-
+Ce dépôt contient nos différents codes ayant servi à la réalisation du projet. Ce sont tous des fichiers .ipynb car nous avons principalement travaillé sur colab. Les colabs une fois lancés contiennent déjà les résultats d'exécution passées. Nous espérons que ce format, bien qu'éloigné des githubs normaux, saura vous convenir. 
+Si vous souhaitez faire tourner des codes, le fichier ADV_ImageNet.ipynb sera très long. Les autres prennent globalement moins de 5 minutes d'exécution.
+Bonne lecture !
 ---
 
 ## Liste des fichiers et commandes
@@ -37,37 +38,32 @@ Voir "Generating Adversarial Examples Using Gradient-based Rotations"
 ```bash
 jupyter notebook Rotation_x_direction_gradient.ipynb
 ```
-### 7. `Adv_ImageNet.ipynb`
+### 7. `jupyter notebook Rubbish\ class\ examples.ipynb`
 Voir "Studying Rubbish class examples"
-```bash
-jupyter notebook Adv_ImageNet.ipynb
-```
-### 8. `jupyter notebook Rubbish\ class\ examples.ipynb`
-Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
 ```bash
 jupyter notebook Rubbish\ class\ examples.ipynb
 ```
-### 9. `jupyter notebook RéseauMaxout_Fonction_de_Loss_alpha.ipynb`
+### 8. `jupyter notebook RéseauMaxout_Fonction_de_Loss_alpha.ipynb`
 Voir "Creating robust neuronal networks against adversarial attack"
 ```bash
 jupyter notebook RéseauMaxout_Fonction_de_Loss_alpha.ipynb
 ```
-### 10. `Réseau_Maxout_L1WeightDecay.ipynb`
+### 9. `Réseau_Maxout_L1WeightDecay.ipynb`
 Voir "Creating robust neuronal networks against adversarial attack"
 ```bash
 jupyter notebook Réseau_Maxout_L1WeightDecay.ipynb
 ```
-### 11. `Réseau_Maxout_MNIST.ipynb`
+### 10. `Réseau_Maxout_MNIST.ipynb`
 Voir "Maxout Network with FGSM" 
 ```bash
 jupyter notebook Réseau_Maxout_MNIST.ipynb
 ```
-### 12. `Réseau_maxout_convol_CIFAR-10.ipynb`
+### 11. `Réseau_maxout_convol_CIFAR-10.ipynb`
 Voir"Convolutional Maxout Network with FGSM "
 ```bash
 jupyter notebook Réseau_maxout_convol_CIFAR-10.ipynb
 ```
-### 13. `Shallow_Softmax_MNIST.ipynb`
+### 12. `Shallow_Softmax_MNIST.ipynb`
 Voir "Shallow Softmax Classifier with FGSM"
 ```bash
 jupyter notebook Shallow_Softmax_MNIST.ipynb
