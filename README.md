@@ -1,6 +1,6 @@
 # Projet Codes ML
 
-Ce dépôt contient plusieurs notebooks pour différents projets liés à l'apprentissage machine, les réseaux de neurones et les attaques adversariales. Voici une liste des fichiers, avec leur description (à compléter) et les commandes pour les exécuter.
+Ce dépôt contient plusieurs notebooks pour différents projets liés à l'apprentissage machine, les réseaux de neurones et les attaques adversariales. Voici une liste des fichiers, avec leur description et les commandes pour les exécuter. Chacun des fichiers est déposé dans notre github, la commande correspondante permet de les appeler.
 
 ---
 
