@@ -7,7 +7,7 @@ Ce dépôt contient plusieurs notebooks pour différents projets liés à l'appr
 ## Liste des fichiers et commandes
 
 ### 1. `Adv_ImageNet.ipynb`
-Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+Description : Importation du sous ensemble d'images Imagenette issues de ImageNet.Entrainement à la création d'exemples adversariaux
 ```bash
 jupyter notebook Adv_ImageNet.ipynb
 ```
