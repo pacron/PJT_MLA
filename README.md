@@ -7,17 +7,17 @@ Ce dépôt contient plusieurs notebooks pour différents projets liés à l'appr
 ## Liste des fichiers et commandes
 
 ### 1. `Adv_ImageNet.ipynb`
-Description : Importation du sous ensemble d'images Imagenette issues de ImageNet.Entrainement à la création d'exemples adversariaux
+Voir "Adversarial attack on Imagenette dataset"
 ```bash
 jupyter notebook Adv_ImageNet.ipynb
 ```
 ### 2. `Code_RBF_Confiance (1).ipynb`
-Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+Voir " Studying the effectiveness of non-linear neuronal networks (RBF networks)"
 ```bash
 jupyter notebook Code_RBF_Confiance\ \(1\).ipynb
 ```
 ### 3. `Comparaisons_RBF_Maxout_Softmax.ipynb`
-Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+Voir "Studying the effectiveness of non-linear neuronal networks (RBF networks)"
 ```bash
 jupyter notebook Comparaisons_RBF_Maxout_Softmax.ipynb
 ```
@@ -38,12 +38,12 @@ Description : [À compléter - Notebook pour travailler sur des adversarial exam
 jupyter notebook RNN_Simple_AttaqueADV.ipynb
 ```
 ### 7. `Rotation_x_direction_gradient.ipynb`
-Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+Voir "Generating Adversarial Examples Using Gradient-based Rotations"
 ```bash
 jupyter notebook Rotation_x_direction_gradient.ipynb
 ```
 ### 8. `Adv_ImageNet.ipynb`
-Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+Voir "Studying Rubbish class examples"
 ```bash
 jupyter notebook Adv_ImageNet.ipynb
 ```
@@ -53,27 +53,27 @@ Description : [À compléter - Notebook pour travailler sur des adversarial exam
 jupyter notebook Rubbish\ class\ examples.ipynb
 ```
 ### 10. `jupyter notebook RéseauMaxout_Fonction_de_Loss_alpha.ipynb`
-Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+Voir "Creating robust neuronal networks against adversarial attack"
 ```bash
 jupyter notebook RéseauMaxout_Fonction_de_Loss_alpha.ipynb
 ```
 ### 11. `Réseau_Maxout_L1WeightDecay.ipynb`
-Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+Voir "Creating robust neuronal networks against adversarial attack"
 ```bash
 jupyter notebook Réseau_Maxout_L1WeightDecay.ipynb
 ```
 ### 12. `Réseau_Maxout_MNIST.ipynb`
-Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+Voir "Maxout Network with FGSM" 
 ```bash
 jupyter notebook Réseau_Maxout_MNIST.ipynb
 ```
 ### 13. `Réseau_maxout_convol_CIFAR-10.ipynb`
-Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+Voir"Convolutional Maxout Network with FGSM "
 ```bash
 jupyter notebook Réseau_maxout_convol_CIFAR-10.ipynb
 ```
 ### 14. `Shallow_Softmax_MNIST.ipynb`
-Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+Voir "Shallow Softmax Classifier with FGSM"
 ```bash
 jupyter notebook Shallow_Softmax_MNIST.ipynb
 ```
