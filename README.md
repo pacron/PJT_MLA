@@ -20,59 +20,54 @@ jupyter notebook Code_RBF_Confiance\ \(1\).ipynb
 Voir "Studying the effectiveness of non-linear neuronal networks (RBF networks)"
 ```bash
 jupyter notebook Comparaisons_RBF_Maxout_Softmax.ipynb
-```
-### 4. 'Explaining_and_Harnessing_adversarial_examples.ipynb'
 
-Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
-```bash
-jupyter notebook Explaining_and_Harnessing_adversarial_examples.ipynb
 ```
-### 5. `RNN_Deep_AttaqueADV.ipynb`
-Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+### 4. `RNN_Deep_AttaqueADV.ipynb`
+Voir "Simple attempts with RNN"
 ```bash
 jupyter notebook RNN_Deep_AttaqueADV.ipynb
 ```
-### 6. `RNN_Simple_AttaqueADV.ipynb`
-Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
+### 5. `RNN_Simple_AttaqueADV.ipynb`
+Voir "Simple attempts with RNN"
 ```bash
 jupyter notebook RNN_Simple_AttaqueADV.ipynb
 ```
-### 7. `Rotation_x_direction_gradient.ipynb`
+### 6. `Rotation_x_direction_gradient.ipynb`
 Voir "Generating Adversarial Examples Using Gradient-based Rotations"
 ```bash
 jupyter notebook Rotation_x_direction_gradient.ipynb
 ```
-### 8. `Adv_ImageNet.ipynb`
+### 7. `Adv_ImageNet.ipynb`
 Voir "Studying Rubbish class examples"
 ```bash
 jupyter notebook Adv_ImageNet.ipynb
 ```
-### 9. `jupyter notebook Rubbish\ class\ examples.ipynb`
+### 8. `jupyter notebook Rubbish\ class\ examples.ipynb`
 Description : [À compléter - Notebook pour travailler sur des adversarial examples avec ImageNet.]
 ```bash
 jupyter notebook Rubbish\ class\ examples.ipynb
 ```
-### 10. `jupyter notebook RéseauMaxout_Fonction_de_Loss_alpha.ipynb`
+### 9. `jupyter notebook RéseauMaxout_Fonction_de_Loss_alpha.ipynb`
 Voir "Creating robust neuronal networks against adversarial attack"
 ```bash
 jupyter notebook RéseauMaxout_Fonction_de_Loss_alpha.ipynb
 ```
-### 11. `Réseau_Maxout_L1WeightDecay.ipynb`
+### 10. `Réseau_Maxout_L1WeightDecay.ipynb`
 Voir "Creating robust neuronal networks against adversarial attack"
 ```bash
 jupyter notebook Réseau_Maxout_L1WeightDecay.ipynb
 ```
-### 12. `Réseau_Maxout_MNIST.ipynb`
+### 11. `Réseau_Maxout_MNIST.ipynb`
 Voir "Maxout Network with FGSM" 
 ```bash
 jupyter notebook Réseau_Maxout_MNIST.ipynb
 ```
-### 13. `Réseau_maxout_convol_CIFAR-10.ipynb`
+### 12. `Réseau_maxout_convol_CIFAR-10.ipynb`
 Voir"Convolutional Maxout Network with FGSM "
 ```bash
 jupyter notebook Réseau_maxout_convol_CIFAR-10.ipynb
 ```
-### 14. `Shallow_Softmax_MNIST.ipynb`
+### 13. `Shallow_Softmax_MNIST.ipynb`
 Voir "Shallow Softmax Classifier with FGSM"
 ```bash
 jupyter notebook Shallow_Softmax_MNIST.ipynb
